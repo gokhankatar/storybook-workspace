@@ -1,5 +1,5 @@
 <template>
-  <v-row class="pa-5 my-5 d-flex flex-wrap justify-center align-center">
+  <v-row class="my-5 d-flex flex-wrap justify-center align-center">
     <v-col v-for="(card, index) of cards" :key="index" cols="12" sm="5" md="4" lg="3">
       <v-card elevation="15" class="card-container pa-4 d-flex flex-column text-center">
         <div class="d-flex justify-space-between align-center">
