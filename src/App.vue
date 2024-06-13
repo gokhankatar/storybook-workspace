@@ -1,51 +1,21 @@
+<template>
+  <v-app>
+    <v-main>
+      <Container />
+    </v-main>
+  </v-app>
+</template>
+
 <script>
-import Button from "./components/Button.vue";
-import Card from "./components/Card.vue";
+import Container from "./components/Container.vue";
 
 export default {
-  name: "AppVue",
-  components: { Button, Card },
+  name: "App",
+  components: { Container },
+  data() {
+    return {};
+  },
 };
 </script>
 
-<template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <Button />
-  <Card />
-</template>
-
-<style>
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>
+<style scoped></style>
