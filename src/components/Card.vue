@@ -1,127 +1,541 @@
 <template>
-  <div class="card-wrapper">
-    <div
-      class="card"
-      :style="{
-        boxShadow: `0 0 1.2rem ${theme}`,
-        color: theme,
-      }"
-    >
-      <h2 class="card-title">{{ cardTitle }}</h2>
-      <h4 class="card-subtitle">{{ cardSubtitle }}</h4>
-      <p class="card-message">{{ cardMsg }}</p>
-    </div>
-    <div
-      class="card"
-      :style="{
-        boxShadow: `0 0 1.2rem ${theme}`,
-        color: theme,
-      }"
-    >
-      <h2 class="card-title">{{ cardTitle }}</h2>
-      <h4 class="card-subtitle">{{ cardSubtitle }}</h4>
-      <p class="card-message">{{ cardMsg }}</p>
-    </div>
-    <div
-      class="card"
-      :style="{
-        boxShadow: `0 0 1.2rem ${theme}`,
-        color: theme,
-      }"
-    >
-      <h2 class="card-title">{{ cardTitle }}</h2>
-      <h4 class="card-subtitle">{{ cardSubtitle }}</h4>
-      <p class="card-message">{{ cardMsg }}</p>
-    </div>
-    <div
-      class="card"
-      :style="{
-        boxShadow: `0 0 1.2rem ${theme}`,
-        color: theme,
-      }"
-    >
-      <h2 class="card-title">{{ cardTitle }}</h2>
-      <h4 class="card-subtitle">{{ cardSubtitle }}</h4>
-      <p class="card-message">{{ cardMsg }}</p>
-    </div>
-    <div
-      class="card"
-      :style="{
-        boxShadow: `0 0 1.2rem ${theme}`,
-        color: theme,
-      }"
-    >
-      <h2 class="card-title">{{ cardTitle }}</h2>
-      <h4 class="card-subtitle">{{ cardSubtitle }}</h4>
-      <p class="card-message">{{ cardMsg }}</p>
-    </div>
-    <div
-      class="card"
-      :style="{
-        boxShadow: `0 0 1.2rem ${theme}`,
-        color: theme,
-      }"
-    >
-      <h2 class="card-title">{{ cardTitle }}</h2>
-      <h4 class="card-subtitle">{{ cardSubtitle }}</h4>
-      <p class="card-message">{{ cardMsg }}</p>
-    </div>
-  </div>
+  <v-row class="pa-5 my-5 d-flex flex-wrap">
+    <v-col cols="12" md="3">
+      <v-card elevation="15" class="card-container pa-4 d-flex flex-column text-center">
+
+        <div class="d-flex justify-space-between align-center">
+          <div>
+            <v-icon class="cursor-pointer" color="green" icon="mdi-checkbox-marked-circle"></v-icon>
+            <v-icon :color="theme" class="mx-1 cursor-pointer" icon="mdi-calendar"></v-icon>
+          </div>
+
+          <div class="d-flex justify-center align-center">
+            <img style="border-radius: 1rem;" width="40" :src="projectLogoUrl" alt="project-logo">
+          </div>
+
+          <div>
+            <v-icon class="cursor-pointer" color="primary" icon="mdi-clock"></v-icon>
+            <v-icon color="error" class="mx-1 cursor-pointer" icon="mdi-gavel"></v-icon>
+          </div>
+        </div>
+
+        <div :class="`text-${theme}`">
+          <h5 class="text-subtitle-1">{{ activity }}</h5>
+          <p class="text-caption font-weight-bold">{{ time }}</p>
+          <h4 class="text-h4">{{ projectName }}</h4>
+        </div>
+
+        <div>
+          <p class="text-subtitle">{{ activityMsg }}</p>
+        </div>
+
+        <div class="btn-container d-flex justify-center">
+          <v-btn :class="`text-${theme}`" :style="buttonStyle" rounded="xl">{{ btnPrimaryText }}</v-btn>
+          <v-btn :class="`text-${theme}`" :style="buttonStyle" rounded="xl">{{ btnSecondaryText }}</v-btn>
+        </div>
+
+        <div>
+          <div class="d-flex justify-space-between">
+            <span class="text-caption-1 font-weight-bold">{{ percentage }}%</span>
+            <span class="text-caption-1 font-weight-bold">{{ vote }} votes</span>
+          </div>
+          <hr class="my-1" :color="theme">
+        </div>
+
+        <div v-if="!isVote" class="d-flex justify-space-between">
+          <v-btn @click="showVoteMsg" size="large" prepend-icon="mdi-thumb-up">Good</v-btn>
+          <v-btn @click="showVoteMsg" size="large" prepend-icon="mdi-thumb-down">Bad</v-btn>
+        </div>
+
+        <div v-if="isVote" :class="`text-subtitle text-${theme}`">
+          <p>Thanks for your vote!</p>
+        </div>
+
+        <div class="pa-1">
+          <p class="text-caption">Released {{ releaseTime }}</p>
+        </div>
+      </v-card>
+    </v-col>
+
+    <v-col cols="12" md="3">
+      <v-card elevation="15" class="card-container pa-4 d-flex flex-column text-center">
+
+        <div class="d-flex justify-space-between align-center">
+          <div>
+            <v-icon class="cursor-pointer" color="green" icon="mdi-checkbox-marked-circle"></v-icon>
+            <v-icon :color="theme" class="mx-1 cursor-pointer" icon="mdi-calendar"></v-icon>
+          </div>
+
+          <div class="d-flex justify-center align-center">
+            <img style="border-radius: 1rem;" width="40" :src="projectLogoUrl" alt="project-logo">
+          </div>
+
+          <div>
+            <v-icon class="cursor-pointer" color="primary" icon="mdi-clock"></v-icon>
+            <v-icon color="error" class="mx-1 cursor-pointer" icon="mdi-gavel"></v-icon>
+          </div>
+        </div>
+
+        <div :class="`text-${theme}`">
+          <h5 class="text-subtitle-1">{{ activity }}</h5>
+          <p class="text-caption font-weight-bold">{{ time }}</p>
+          <h4 class="text-h4">{{ projectName }}</h4>
+        </div>
+
+        <div>
+          <p class="text-subtitle">{{ activityMsg }}</p>
+        </div>
+
+        <div class="btn-container d-flex justify-center">
+          <v-btn :class="`text-${theme}`" :style="buttonStyle" rounded="xl">{{ btnPrimaryText }}</v-btn>
+          <v-btn :class="`text-${theme}`" :style="buttonStyle" rounded="xl">{{ btnSecondaryText }}</v-btn>
+        </div>
+
+        <div>
+          <div class="d-flex justify-space-between">
+            <span class="text-caption-1 font-weight-bold">{{ percentage }}%</span>
+            <span class="text-caption-1 font-weight-bold">{{ vote }} votes</span>
+          </div>
+          <hr class="my-1" :color="theme">
+        </div>
+
+        <div v-if="!isVote" class="d-flex justify-space-between">
+          <v-btn @click="showVoteMsg" size="large" prepend-icon="mdi-thumb-up">Good</v-btn>
+          <v-btn @click="showVoteMsg" size="large" prepend-icon="mdi-thumb-down">Bad</v-btn>
+        </div>
+
+        <div v-if="isVote" :class="`text-subtitle text-${theme}`">
+          <p>Thanks for your vote!</p>
+        </div>
+
+        <div class="pa-1">
+          <p class="text-caption">Released {{ releaseTime }}</p>
+        </div>
+      </v-card>
+    </v-col>
+
+    <v-col cols="12" md="3">
+      <v-card elevation="15" class="card-container pa-4 d-flex flex-column text-center">
+
+        <div class="d-flex justify-space-between align-center">
+          <div>
+            <v-icon class="cursor-pointer" color="green" icon="mdi-checkbox-marked-circle"></v-icon>
+            <v-icon :color="theme" class="mx-1 cursor-pointer" icon="mdi-calendar"></v-icon>
+          </div>
+
+          <div class="d-flex justify-center align-center">
+            <img style="border-radius: 1rem;" width="40" :src="projectLogoUrl" alt="project-logo">
+          </div>
+
+          <div>
+            <v-icon class="cursor-pointer" color="primary" icon="mdi-clock"></v-icon>
+            <v-icon color="error" class="mx-1 cursor-pointer" icon="mdi-gavel"></v-icon>
+          </div>
+        </div>
+
+        <div :class="`text-${theme}`">
+          <h5 class="text-subtitle-1">{{ activity }}</h5>
+          <p class="text-caption font-weight-bold">{{ time }}</p>
+          <h4 class="text-h4">{{ projectName }}</h4>
+        </div>
+
+        <div>
+          <p class="text-subtitle">{{ activityMsg }}</p>
+        </div>
+
+        <div class="btn-container d-flex justify-center">
+          <v-btn :class="`text-${theme}`" :style="buttonStyle" rounded="xl">{{ btnPrimaryText }}</v-btn>
+          <v-btn :class="`text-${theme}`" :style="buttonStyle" rounded="xl">{{ btnSecondaryText }}</v-btn>
+        </div>
+
+        <div>
+          <div class="d-flex justify-space-between">
+            <span class="text-caption-1 font-weight-bold">{{ percentage }}%</span>
+            <span class="text-caption-1 font-weight-bold">{{ vote }} votes</span>
+          </div>
+          <hr class="my-1" :color="theme">
+        </div>
+
+        <div v-if="!isVote" class="d-flex justify-space-between">
+          <v-btn @click="showVoteMsg" size="large" prepend-icon="mdi-thumb-up">Good</v-btn>
+          <v-btn @click="showVoteMsg" size="large" prepend-icon="mdi-thumb-down">Bad</v-btn>
+        </div>
+
+        <div v-if="isVote" :class="`text-subtitle text-${theme}`">
+          <p>Thanks for your vote!</p>
+        </div>
+
+        <div class="pa-1">
+          <p class="text-caption">Released {{ releaseTime }}</p>
+        </div>
+      </v-card>
+    </v-col>
+
+    <v-col cols="12" md="3">
+      <v-card elevation="15" class="card-container pa-4 d-flex flex-column text-center">
+
+        <div class="d-flex justify-space-between align-center">
+          <div>
+            <v-icon class="cursor-pointer" color="green" icon="mdi-checkbox-marked-circle"></v-icon>
+            <v-icon :color="theme" class="mx-1 cursor-pointer" icon="mdi-calendar"></v-icon>
+          </div>
+
+          <div class="d-flex justify-center align-center">
+            <img style="border-radius: 1rem;" width="40" :src="projectLogoUrl" alt="project-logo">
+          </div>
+
+          <div>
+            <v-icon class="cursor-pointer" color="primary" icon="mdi-clock"></v-icon>
+            <v-icon color="error" class="mx-1 cursor-pointer" icon="mdi-gavel"></v-icon>
+          </div>
+        </div>
+
+        <div :class="`text-${theme}`">
+          <h5 class="text-subtitle-1">{{ activity }}</h5>
+          <p class="text-caption font-weight-bold">{{ time }}</p>
+          <h4 class="text-h4">{{ projectName }}</h4>
+        </div>
+
+        <div>
+          <p class="text-subtitle">{{ activityMsg }}</p>
+        </div>
+
+        <div class="btn-container d-flex justify-center">
+          <v-btn :class="`text-${theme}`" :style="buttonStyle" rounded="xl">{{ btnPrimaryText }}</v-btn>
+          <v-btn :class="`text-${theme}`" :style="buttonStyle" rounded="xl">{{ btnSecondaryText }}</v-btn>
+        </div>
+
+        <div>
+          <div class="d-flex justify-space-between">
+            <span class="text-caption-1 font-weight-bold">{{ percentage }}%</span>
+            <span class="text-caption-1 font-weight-bold">{{ vote }} votes</span>
+          </div>
+          <hr class="my-1" :color="theme">
+        </div>
+
+        <div v-if="!isVote" class="d-flex justify-space-between">
+          <v-btn @click="showVoteMsg" size="large" prepend-icon="mdi-thumb-up">Good</v-btn>
+          <v-btn @click="showVoteMsg" size="large" prepend-icon="mdi-thumb-down">Bad</v-btn>
+        </div>
+
+        <div v-if="isVote" :class="`text-subtitle text-${theme}`">
+          <p>Thanks for your vote!</p>
+        </div>
+
+        <div class="pa-1">
+          <p class="text-caption">Released {{ releaseTime }}</p>
+        </div>
+      </v-card>
+    </v-col>
+
+    <v-col cols="12" md="3">
+      <v-card elevation="15" class="card-container pa-4 d-flex flex-column text-center">
+
+        <div class="d-flex justify-space-between align-center">
+          <div>
+            <v-icon class="cursor-pointer" color="green" icon="mdi-checkbox-marked-circle"></v-icon>
+            <v-icon :color="theme" class="mx-1 cursor-pointer" icon="mdi-calendar"></v-icon>
+          </div>
+
+          <div class="d-flex justify-center align-center">
+            <img style="border-radius: 1rem;" width="40" :src="projectLogoUrl" alt="project-logo">
+          </div>
+
+          <div>
+            <v-icon class="cursor-pointer" color="primary" icon="mdi-clock"></v-icon>
+            <v-icon color="error" class="mx-1 cursor-pointer" icon="mdi-gavel"></v-icon>
+          </div>
+        </div>
+
+        <div :class="`text-${theme}`">
+          <h5 class="text-subtitle-1">{{ activity }}</h5>
+          <p class="text-caption font-weight-bold">{{ time }}</p>
+          <h4 class="text-h4">{{ projectName }}</h4>
+        </div>
+
+        <div>
+          <p class="text-subtitle">{{ activityMsg }}</p>
+        </div>
+
+        <div class="btn-container d-flex justify-center">
+          <v-btn :class="`text-${theme}`" :style="buttonStyle" rounded="xl">{{ btnPrimaryText }}</v-btn>
+          <v-btn :class="`text-${theme}`" :style="buttonStyle" rounded="xl">{{ btnSecondaryText }}</v-btn>
+        </div>
+
+        <div>
+          <div class="d-flex justify-space-between">
+            <span class="text-caption-1 font-weight-bold">{{ percentage }}%</span>
+            <span class="text-caption-1 font-weight-bold">{{ vote }} votes</span>
+          </div>
+          <hr class="my-1" :color="theme">
+        </div>
+
+        <div v-if="!isVote" class="d-flex justify-space-between">
+          <v-btn @click="showVoteMsg" size="large" prepend-icon="mdi-thumb-up">Good</v-btn>
+          <v-btn @click="showVoteMsg" size="large" prepend-icon="mdi-thumb-down">Bad</v-btn>
+        </div>
+
+        <div v-if="isVote" :class="`text-subtitle text-${theme}`">
+          <p>Thanks for your vote!</p>
+        </div>
+
+        <div class="pa-1">
+          <p class="text-caption">Released {{ releaseTime }}</p>
+        </div>
+      </v-card>
+    </v-col>
+
+    <v-col cols="12" md="3">
+      <v-card elevation="15" class="card-container pa-4 d-flex flex-column text-center">
+
+        <div class="d-flex justify-space-between align-center">
+          <div>
+            <v-icon class="cursor-pointer" color="green" icon="mdi-checkbox-marked-circle"></v-icon>
+            <v-icon :color="theme" class="mx-1 cursor-pointer" icon="mdi-calendar"></v-icon>
+          </div>
+
+          <div class="d-flex justify-center align-center">
+            <img style="border-radius: 1rem;" width="40" :src="projectLogoUrl" alt="project-logo">
+          </div>
+
+          <div>
+            <v-icon class="cursor-pointer" color="primary" icon="mdi-clock"></v-icon>
+            <v-icon color="error" class="mx-1 cursor-pointer" icon="mdi-gavel"></v-icon>
+          </div>
+        </div>
+
+        <div :class="`text-${theme}`">
+          <h5 class="text-subtitle-1">{{ activity }}</h5>
+          <p class="text-caption font-weight-bold">{{ time }}</p>
+          <h4 class="text-h4">{{ projectName }}</h4>
+        </div>
+
+        <div>
+          <p class="text-subtitle">{{ activityMsg }}</p>
+        </div>
+
+        <div class="btn-container d-flex justify-center">
+          <v-btn :class="`text-${theme}`" :style="buttonStyle" rounded="xl">{{ btnPrimaryText }}</v-btn>
+          <v-btn :class="`text-${theme}`" :style="buttonStyle" rounded="xl">{{ btnSecondaryText }}</v-btn>
+        </div>
+
+        <div>
+          <div class="d-flex justify-space-between">
+            <span class="text-caption-1 font-weight-bold">{{ percentage }}%</span>
+            <span class="text-caption-1 font-weight-bold">{{ vote }} votes</span>
+          </div>
+          <hr class="my-1" :color="theme">
+        </div>
+
+        <div v-if="!isVote" class="d-flex justify-space-between">
+          <v-btn @click="showVoteMsg" size="large" prepend-icon="mdi-thumb-up">Good</v-btn>
+          <v-btn @click="showVoteMsg" size="large" prepend-icon="mdi-thumb-down">Bad</v-btn>
+        </div>
+
+        <div v-if="isVote" :class="`text-subtitle text-${theme}`">
+          <p>Thanks for your vote!</p>
+        </div>
+
+        <div class="pa-1">
+          <p class="text-caption">Released {{ releaseTime }}</p>
+        </div>
+      </v-card>
+    </v-col>
+
+    <v-col cols="12" md="3">
+      <v-card elevation="15" class="card-container pa-4 d-flex flex-column text-center">
+
+        <div class="d-flex justify-space-between align-center">
+          <div>
+            <v-icon class="cursor-pointer" color="green" icon="mdi-checkbox-marked-circle"></v-icon>
+            <v-icon :color="theme" class="mx-1 cursor-pointer" icon="mdi-calendar"></v-icon>
+          </div>
+
+          <div class="d-flex justify-center align-center">
+            <img style="border-radius: 1rem;" width="40" :src="projectLogoUrl" alt="project-logo">
+          </div>
+
+          <div>
+            <v-icon class="cursor-pointer" color="primary" icon="mdi-clock"></v-icon>
+            <v-icon color="error" class="mx-1 cursor-pointer" icon="mdi-gavel"></v-icon>
+          </div>
+        </div>
+
+        <div :class="`text-${theme}`">
+          <h5 class="text-subtitle-1">{{ activity }}</h5>
+          <p class="text-caption font-weight-bold">{{ time }}</p>
+          <h4 class="text-h4">{{ projectName }}</h4>
+        </div>
+
+        <div>
+          <p class="text-subtitle">{{ activityMsg }}</p>
+        </div>
+
+        <div class="btn-container d-flex justify-center">
+          <v-btn :class="`text-${theme}`" :style="buttonStyle" rounded="xl">{{ btnPrimaryText }}</v-btn>
+          <v-btn :class="`text-${theme}`" :style="buttonStyle" rounded="xl">{{ btnSecondaryText }}</v-btn>
+        </div>
+
+        <div>
+          <div class="d-flex justify-space-between">
+            <span class="text-caption-1 font-weight-bold">{{ percentage }}%</span>
+            <span class="text-caption-1 font-weight-bold">{{ vote }} votes</span>
+          </div>
+          <hr class="my-1" :color="theme">
+        </div>
+
+        <div v-if="!isVote" class="d-flex justify-space-between">
+          <v-btn @click="showVoteMsg" size="large" prepend-icon="mdi-thumb-up">Good</v-btn>
+          <v-btn @click="showVoteMsg" size="large" prepend-icon="mdi-thumb-down">Bad</v-btn>
+        </div>
+
+        <div v-if="isVote" :class="`text-subtitle text-${theme}`">
+          <p>Thanks for your vote!</p>
+        </div>
+
+        <div class="pa-1">
+          <p class="text-caption">Released {{ releaseTime }}</p>
+        </div>
+      </v-card>
+    </v-col>
+    
+    <v-col cols="12" md="3">
+      <v-card elevation="15" class="card-container pa-4 d-flex flex-column text-center">
+
+        <div class="d-flex justify-space-between align-center">
+          <div>
+            <v-icon class="cursor-pointer" color="green" icon="mdi-checkbox-marked-circle"></v-icon>
+            <v-icon :color="theme" class="mx-1 cursor-pointer" icon="mdi-calendar"></v-icon>
+          </div>
+
+          <div class="d-flex justify-center align-center">
+            <img style="border-radius: 1rem;" width="40" :src="projectLogoUrl" alt="project-logo">
+          </div>
+
+          <div>
+            <v-icon class="cursor-pointer" color="primary" icon="mdi-clock"></v-icon>
+            <v-icon color="error" class="mx-1 cursor-pointer" icon="mdi-gavel"></v-icon>
+          </div>
+        </div>
+
+        <div :class="`text-${theme}`">
+          <h5 class="text-subtitle-1">{{ activity }}</h5>
+          <p class="text-caption font-weight-bold">{{ time }}</p>
+          <h4 class="text-h4">{{ projectName }}</h4>
+        </div>
+
+        <div>
+          <p class="text-subtitle">{{ activityMsg }}</p>
+        </div>
+
+        <div class="btn-container d-flex justify-center">
+          <v-btn :class="`text-${theme}`" :style="buttonStyle" rounded="xl">{{ btnPrimaryText }}</v-btn>
+          <v-btn :class="`text-${theme}`" :style="buttonStyle" rounded="xl">{{ btnSecondaryText }}</v-btn>
+        </div>
+
+        <div>
+          <div class="d-flex justify-space-between">
+            <span class="text-caption-1 font-weight-bold">{{ percentage }}%</span>
+            <span class="text-caption-1 font-weight-bold">{{ vote }} votes</span>
+          </div>
+          <hr class="my-1" :color="theme">
+        </div>
+
+        <div v-if="!isVote" class="d-flex justify-space-between">
+          <v-btn @click="showVoteMsg" size="large" prepend-icon="mdi-thumb-up">Good</v-btn>
+          <v-btn @click="showVoteMsg" size="large" prepend-icon="mdi-thumb-down">Bad</v-btn>
+        </div>
+
+        <div v-if="isVote" :class="`text-subtitle text-${theme}`">
+          <p>Thanks for your vote!</p>
+        </div>
+
+        <div class="pa-1">
+          <p class="text-caption">Released {{ releaseTime }}</p>
+        </div>
+      </v-card>
+    </v-col>
+  </v-row>
 </template>
 <script>
 export default {
   name: "CardVue",
   props: {
+    activity: {
+      type: String,
+      default: 'Paris Conference (France)'
+    },
+    time: {
+      type: String,
+      default: '12/05/2024'
+    },
+    projectLogoUrl: {
+      type: String,
+      default: 'https://www.pngfind.com/pngs/m/493-4934627_storybook-icon-ddf01037-storybook-js-hd-png-download.png'
+    },
+    projectName: {
+      type: String,
+      default: 'Storybook Corporation'
+    },
+    activityMsg: {
+      type: String,
+      default: 'Storybook company will hold a conference in Paris on May 12 at 09:30. Participants will be given a certificate.'
+    },
+    btnPrimaryText: {
+      type: String,
+      default: 'browse'
+    },
+    btnSecondaryText: {
+      type: String,
+      default: 'details'
+    },
     theme: {
       type: String,
-      default: "purple",
+      default: 'warning'
     },
-    cardTitle: {
+    vote: {
+      type: Number,
+      default: 81
+    },
+    percentage: {
+      type: Number,
+      default: 92
+    },
+    releaseTime: {
       type: String,
-      default: "Card Title",
-    },
-    cardSubtitle: {
-      type: String,
-      default: "There is a subtitle",
-    },
-    cardMsg: {
-      type: String,
-      default:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae adipisci vel assumenda corporis ratione nemo aliquid. Odit illum facilis itaque corporis magnam consequatur tenetur, veniam, reprehenderit reiciendis id libero? Dicta.",
-    },
+      default: '06 Jun 2024'
+    }
   },
+  data() {
+    return {
+      isVote: false
+    }
+  },
+  methods: {
+    showVoteMsg() {
+      this.isVote = true;
+      setTimeout(() => {
+        this.isVote = false;
+      }, 2000)
+    }
+  },
+  computed: {
+    buttonStyle() {
+      return {
+        border: '1px solid',
+        boxShadow: '0 0 .5rem'
+      }
+    }
+  }
 };
 </script>
 <style scoped>
-.card-wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 1.9rem;
+.card-container {
+  gap: .9rem;
+  line-height: 1.8;
+}
 
-  padding: 1rem;
-  margin: 2rem 0;
-}
-.card {
-  flex: 0 30%;
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  text-align: start;
-  padding: 1rem;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  border-radius: 0.5rem;
-  letter-spacing: 1px;
-}
-.card:hover {
-  scale: 1.1;
-}
-.card h4 {
-  text-transform: capitalize;
-}
-.card p {
-  font-size: 0.9rem;
+.btn-container {
+  gap: .7rem;
 }
 </style>
