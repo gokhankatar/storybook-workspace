@@ -1,6 +1,6 @@
 <template>
   <v-row class="my-5 d-flex justify-center align-center">
-    <h3 class="text-h3 text-success">There is about page</h3>
+    <h3 class="text-h5 text-md-h3 text-success">There is about page</h3>
   </v-row>
 </template>
 <script>
