@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app :theme="$store.state.theme">
     <v-main>
       <Container />
     </v-main>
