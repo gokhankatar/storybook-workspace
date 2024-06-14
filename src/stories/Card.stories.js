@@ -18,20 +18,20 @@ const Template = (args) => ({
 });
 
 export const Theme = {
-  render: Template,
-  args: {
-    theme: "warning",
-    activity: "Paris Conference (France)",
-    time: "12/05/2024",
+  render:Template,
+  args:{
+    theme:"purple",
+    activity:"Miami Conference (USA)",
+    time:"12/05/2024",
     projectLogoUrl:
-      "https://www.pngfind.com/pngs/m/493-4934627_storybook-icon-ddf01037-storybook-js-hd-png-download.png",
-    projectName: "Storybook Corporation",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/800px-Bitcoin.svg.png",
+    projectName:"Nakamoto Corporation",
     activityMsg:
-      "Storybook company will hold a conference in Paris on May 12 at 09:30. Participants will be given a certificate.",
-    btnPrimaryText: "browse",
-    btnSecondaryText: "details",
-    vote: 85,
-    percentage: 92,
-    releaseTime: "06 Jun 2024",
+      "Satoshi Nakamoto company will hold a conference in Paris on May 12 at 09:30. Participants will be given a certificate.",
+    btnPrimaryText:"browse",
+    btnSecondaryText:"details",
+    vote:85,
+    percentage:92,
+    releaseTime:"06 Jun 2024",
   },
 };

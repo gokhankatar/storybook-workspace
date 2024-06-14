@@ -1,15 +1,14 @@
 <template>
   <v-row class="my-5 d-flex justify-center align-center">
-    <h3 class="text-h5 text-md-h3 text-warning">There is app page</h3>
+    <h3 class="text-h5 text-md-h3 text-warning">Card component for storybook</h3>
   </v-row>
   <Card />
-
 </template>
 <script>
-import Card from '../components/Card.vue';
+import Card from "../components/Card.vue";
 export default {
   name: "AppVue",
-  components: { Card }
+  components: { Card },
 };
 </script>
 <style scoped></style>
